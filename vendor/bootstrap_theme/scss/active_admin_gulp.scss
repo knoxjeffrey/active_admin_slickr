@@ -1,0 +1,469 @@
+@import "./bootstrap.scss";
+@import "./now-ui-kit.scss";
+
+body {
+  overflow-x: hidden;
+}
+
+#wrapper {
+  @extend .container-fluid;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#title_bar, .flashes, #active_admin_content, #footer {
+  @extend .container-fluid;
+}
+
+.navbar-toggler-right {
+  top: 50% !important;
+  transform: translateY(-50%);
+  z-index: 9999;
+}
+
+#header {
+  @extend .navbar,
+          .navbar-toggleable-md,
+          .fixed-top,
+          .bg-primary;
+
+  border-radius: 0px;
+
+  .mobile {
+    display: block;
+  }
+
+  #site_title {
+    @extend .navbar-brand;
+    margin-top: 0; margin-bottom: 0;
+    float: left;
+    font-weight: bold;
+  }
+
+  .header-item {
+    @extend .navbar-nav;
+
+    li {
+      @extend .nav-item;
+
+      &.current { @extend .active; }
+
+      a {
+        @extend .nav-link;
+        font-weight: bold;
+        transition: all .15s ease-in;
+      }
+
+      &:hover {
+        @extend .active;
+      }
+
+      &.has_nested {
+        @extend .dropdown;
+
+        > a {
+          @extend .dropdown-toggle;
+        }
+
+        ul {
+          @extend .dropdown-menu;
+          padding: 0;
+          li {
+            @extend .dropdown-item;
+            background-color: white;
+
+            &:hover {
+              background-color: $gray-lightest;
+
+              a { background-color: $gray-lightest; }
+            }
+
+            a { color: $black-color; background-color: white; }
+
+            &.current {
+              background-color: $gray-lightest;
+
+              a { background-color: $gray-lightest; }
+            }
+          }
+        }
+      }
+    }
+
+    &#utility_nav {
+      @media (min-width: 769px) {
+        margin-left: auto;
+      }
+    }
+
+    #current_user {
+      @media (min-width: 769px) {
+        margin-left: auto;
+      }
+    }
+
+    #logout {
+      a {
+        @extend .btn-danger,
+                .btn;
+        font-weight: bold;
+      }
+      @media (min-width: 769px) {
+        margin-left: 0;
+      }
+    }
+
+    &.collapse {
+      li {
+        ul {
+          display: none;
+
+          li {
+            padding: 0;
+            &.current {
+              background-color: $gray-lightest !important;
+
+              a { background-color: $gray-lightest !important; }
+            }
+
+            a{ color: $black-color !important; }
+          }
+        }
+        &.show {
+          ul { display: block; }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 769px) {
+    .header-item#tabs > li + li {
+      margin-left: 30px;
+    }
+
+    .mobile {
+      display: none;
+    }
+  }
+}
+
+.breadcrumb {
+  padding-left: 0;
+  background: white;
+
+  span {
+    color: $light-gray;
+    transition: all .15s ease-in;
+
+    &:last-child {
+      color: $brand-primary;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: $light-gray;
+    transition: all .15s ease-in;
+
+    &:nth-last-child(2) {
+      color: $brand-primary;
+    }
+
+    &:hover, &:hover + span {
+      color: $brand-primary;
+    }
+  }
+
+  &:after { padding-top: 0.2rem; }
+}
+
+#title_bar {
+  @extend .clearfix,
+          .container-fluid;
+  margin-top: 5*$spacer;
+
+  #titlebar_left {
+    @media (min-width: 769px) {
+      float: left !important;
+    }
+  }
+
+  #titlebar_right {
+    @extend .float-right;
+  }
+
+  .action_item a {
+    @extend .btn, .btn-primary;
+    font-weight: bold;
+    background-color: $brand-warning;
+
+    &:hover { background-color: $warning-states-color; }
+  }
+}
+
+#active_admin_content {
+  @extend .clearfix,
+          .container-fluid;
+  margin-top: $spacer;
+}
+
+.batch_actions_selector {
+  @extend .show, .dropdown;
+  margin-bottom: $spacer;
+
+  .dropdown_menu_button {
+    @extend .btn, .btn-sm, .dropdown-toggle, .btn-warning;
+  }
+
+  .dropdown_menu_list {
+    @extend .dropdown-menu;
+    display: block;
+    .batch_action {
+      @extend .dropdown-item;
+    }
+  }
+}
+
+.flash {
+  @extend .alert;
+  margin-top: 30px;
+}
+
+.flash_alert {
+  @extend .alert-danger;
+}
+
+.flash_notice {
+  @extend .alert-success;
+}
+
+.flash_error {
+  @extend .alert-danger;
+}
+
+#error_explanation {
+  color: red;
+  h2 {
+    font-size: 15px;
+  }
+}
+
+.inline-errors {
+  color: red;
+}
+
+.clear_filters_btn {
+  margin-top: 10px; margin-left: 10px;
+}
+
+.text-break {
+  white-space: normal;
+}
+
+.no-left-padding {
+  padding-left: 0;
+}
+
+#login {
+  max-width: 400px;
+  padding: 15px;
+  margin: 0 auto;
+
+  #admin_user_remember_me {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  #admin_user_submit_action, input[type="submit"] {
+    @extend .btn-block;
+  }
+}
+
+/* Sidebar */
+.filter_form {
+  .filter_form_field {
+    @extend .form-group;
+
+    input,select { @extend .form-control; }
+  }
+
+  .buttons {
+    input, a {
+      @extend .btn, .btn-secondary;
+      font-weight: bold;
+    }
+    input[type="submit"] { @extend .btn-primary; }
+  }
+}
+
+/* Main Content */
+#active_admin_content {
+
+  &.without_sidebar {
+    #main_content_wrapper { @extend .col-md-9; }
+  }
+
+  &.with_sidebar {
+    #main_content_wrapper, #sidebar { display: inline-block; }
+    #main_content_wrapper {
+      @extend .col-md-9;
+
+      @media (min-width: 769px) {
+        vertical-align: top;
+        max-width: 74%;
+      }
+    }
+    #sidebar {
+      @extend .col-md-3;
+      input {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+#main_content_wrapper {
+  .member_link {
+    margin-right: 10px;
+  }
+  input[type="checkbox"] {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin-right: 10px;
+  }
+}
+
+ul.scopes {
+  li.scope {
+    display: inline-block;
+    list-style-type: none;
+    margin-bottom: 4px;
+  }
+  li.scope a{ @extend .btn; @extend .btn-secondary; }
+  li.scope.selected a { @extend .btn-primary; }
+}
+
+.index .datepicker {
+  &.datepicker-orient-top {
+    margin-top: 80px;
+  }
+}
+
+/* Tables */
+.index_as_table { @extend .table-responsive; }
+.index_table {
+  @extend .table, .table-bordered, .table-hover, .table-responsive;
+
+  thead {
+    @extend .thead-inverse;
+    tr {
+      th {
+        width: auto;
+        vertical-align: middle;
+        a {
+          color: $brand-primary;
+          text-transform: uppercase; font-weight: bold; font-size: $font-size-small;
+          transition: all .15s ease-in;
+          text-decoration: none;
+
+          &:hover {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        width: auto;
+
+        .view_link, .edit_link, .delete_link {
+          @extend .badge, .badge-default;
+          transition: all .15s ease-in;
+          font-size: 0.55em;
+
+          &:hover { background-color: white !important; }
+        }
+        .view_link {
+          &:hover {
+            border-color: $brand-success !important; color: $brand-success !important;
+          }
+        }
+        .edit_link {
+          &:hover {
+            border-color: $brand-warning !important; color: $brand-warning !important;
+          }
+        }
+        .delete_link {
+          &:hover {
+            border-color: $brand-danger !important; color: $brand-danger !important;
+          }
+        }
+      }
+    }
+  }
+}
+.attributes_table table {
+  @extend .table;
+
+  tbody tr {
+    margin: 0;
+
+    th { width: 200px;}
+  }
+}
+
+/* Forms */
+form {
+  .inputs, .actions {
+    ol {
+      padding-left: 0;
+      list-style: none;
+    }
+  }
+
+  .inputs {
+    li {
+      @extend .form-group;
+
+      input,select,textarea { @extend .form-control; }
+
+      textarea { background-color: $gray-lightest; }
+    }
+  }
+
+  .actions {
+    li {
+      display: inline-block;
+
+      input, a {
+        @extend .btn, .btn-secondary;
+        font-weight: bold;
+      }
+      input[type="submit"] { @extend .btn-primary; }
+    }
+  }
+
+  .actions li {
+    margin-right: 10px;
+  }
+
+  label.label {
+    /* The label class has a different meaning in bootstrap */
+    display: inline-block;
+    font-weight: bold;
+
+    padding: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    text-align: inherit;
+    white-space: inherit;
+    vertical-align: inherit;
+    border-radius: inherit;
+  }
+}
